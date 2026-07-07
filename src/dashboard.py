@@ -8,7 +8,21 @@ import base64
 from datetime import datetime
 from database import get_db_connection, get_db_connection_readonly
 
-st.set_page_config(page_title="Quant Endgame - 아카데믹 검증 퀀트 플랫폼", layout="wide")
+st.set_page_config(
+    page_title="Quant Endgame - 논문 기반 무료 퀀트 스크리너",
+    page_icon="🏛️",
+    layout="wide"
+)
+
+# OG 메타태그 (카카오톡/블로그 공유 시 미리보기용)
+st.markdown("""
+<meta property="og:title" content="Quant Endgame - 아카데믹 퀀트 스크리너" />
+<meta property="og:description" content="Jegadeesh(1993), Heston(2008), Fama-French(1993) 논문 기반 5대 전략으로 한국+미국 전 종목을 자동 스크리닝합니다. 무료 공개." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://quant-endgame.streamlit.app" />
+<meta name="description" content="학술 논문 기반 무료 퀀트 스크리너. 12-1 모멘텀, 크로스섹션 계절성, 평균회귀, 거래량 이상, 저변동성 전략으로 한국+미국 전 종목 자동 분석." />
+<meta name="keywords" content="퀀트,스크리너,모멘텀,계절성,RSI,무료,주식,종목분석,Quant,Screener" />
+""", unsafe_allow_html=True)
 
 # 1. 커스텀 CSS (단어 단위 줄바꿈 완벽 적용 & 심층 설명 박스 디자인)
 st.markdown("""
