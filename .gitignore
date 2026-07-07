@@ -1,9 +1,8 @@
+src/data/stock_data.duckdb
+src/check.py
+src/dashboard_v1.py
+src/dashboard_v2.py
 __pycache__/
 *.pyc
 .last_run.json
 logs/
-src/data/
-src/data/
-src/check.py
-src/dashboard_v1.py
-src/dashboard_v2.py
