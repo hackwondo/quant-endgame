@@ -148,9 +148,13 @@ def load_all_data():
     return df
 
 def plot_seasonality_chart(ticker, stock_name, holding_days=30):
-    conn = get_db_connection_readonly()
-    df = conn.execute("SELECT Date, Close FROM daily_prices WHERE Ticker = ? ORDER BY Date ASC", (ticker,)).df()
-    conn.close()
+    try:
+        conn = get_db_connection_readonly()
+        df = conn.execute("SELECT Date, Close FROM daily_prices WHERE Ticker = ? ORDER BY Date ASC", (ticker,)).df()
+        conn.close()
+    except Exception:
+        st.info("📊 일봉 데이터가 없어 차트를 표시할 수 없습니다. (클라우드 경량 모드)")
+        return
     
     if df.empty: return
     df['Date'] = pd.to_datetime(df['Date'])
