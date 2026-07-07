@@ -1,8 +1,10 @@
 import duckdb
 import os
 
-DB_PATH_FULL = 'data/stock_data.duckdb'
-DB_PATH_LIGHT = 'data/dashboard_light.duckdb'
+# 이 파일(database.py) 위치 기준으로 data/ 폴더를 찾음
+_BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_PATH_FULL = os.path.join(_BASE_DIR, 'data', 'stock_data.duckdb')
+DB_PATH_LIGHT = os.path.join(_BASE_DIR, 'data', 'dashboard_light.duckdb')
 
 def _get_db_path():
     """원본 DB가 있으면 원본, 없으면 경량 DB를 사용합니다."""
