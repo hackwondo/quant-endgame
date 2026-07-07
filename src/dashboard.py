@@ -59,7 +59,7 @@ st.markdown("""
     .counter-box {
         background-color: #F1F5F9; border: 1px solid #CBD5E1; color: #334155;
         padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: bold;
-        display: inline-block; float: right; margin-top: 15px; white-space: nowrap;
+        text-align: right; white-space: nowrap;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -220,12 +220,9 @@ def plot_seasonality_chart(ticker, stock_name, holding_days=30):
 # 5. 헤더 & 방문자 카운터 (비율을 4.5 : 1.5로 넉넉하게 넓혀서 줄바꿈 완벽 해결!)
 today_v, total_v = update_and_get_visitors()
 data_date = get_data_update_date()
-col_title, col_counter = st.columns([5.2, 0.8])
-with col_title:
-    st.title("🏛️ Quant Endgame: 아카데믹 퀀트 스크리너")
-with col_counter:
-    date_label = f"📅 데이터 기준: <b>{data_date}</b>" if data_date else "📅 데이터 미수집"
-    st.markdown(f'<div class="counter-box">🔥 오늘 접속: <b>{today_v:,}명</b> | 누적: <b>{total_v:,}명</b><br>{date_label}</div>', unsafe_allow_html=True)
+date_label = f"📅 데이터 기준: {data_date}" if data_date else "📅 데이터 미수집"
+st.markdown(f'<div class="counter-box">🔥 오늘 접속: <b>{today_v:,}명</b> | 누적: <b>{total_v:,}명</b> | {date_label}</div>', unsafe_allow_html=True)
+st.title("🏛️ Quant Endgame: 아카데믹 퀀트 스크리너")
 
 st.markdown("""
 <div class="disclaimer-banner">
@@ -402,7 +399,6 @@ with tab6:
 
 # ── 📢 하단 광고 (페이지 최하단) ──
 show_ad("2222222222")  # ← 애드센스에서 발급받은 광고 슬롯 ID로 교체
-
     
 ###실행 방법#####
 #
