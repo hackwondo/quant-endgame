@@ -130,25 +130,20 @@ def get_data_update_date():
 # 3. 로컬 PDF 뷰어 렌더러
 _PAPERS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'papers')
 
+_GITHUB_PDF_BASE = "https://raw.githubusercontent.com/hackwondo/quant-endgame/main/papers"
+
 def display_local_pdf(file_path):
-    # 파일명만 추출하여 papers 폴더에서 찾기
     filename = os.path.basename(file_path)
     if not filename.lower().endswith('.pdf'):
         filename = filename + ".pdf"
     
-    full_path = os.path.join(_PAPERS_DIR, filename)
-    
-    if not os.path.exists(full_path):
-        st.error(f"❌ '{filename}' 파일을 찾을 수 없습니다.")
-        return
-    
-    with open(full_path, "rb") as f:
-        pdf_data = f.read()
-    st.download_button(
-        label=f"📥 {filename} 다운로드",
-        data=pdf_data,
-        file_name=filename,
-        mime="application/pdf"
+    import urllib.parse
+    raw_url = f"{_GITHUB_PDF_BASE}/{urllib.parse.quote(filename)}"
+    viewer_url = f"https://mozilla.github.io/pdf.js/web/viewer.html?file={urllib.parse.quote(raw_url, safe='')}"
+    st.markdown(
+        f'<iframe src="{viewer_url}" width="100%" height="700" '
+        f'style="border: 1px solid #CBD5E1; border-radius: 8px;"></iframe>',
+        unsafe_allow_html=True
     )
 # 4. 데이터 로딩
 @st.cache_data(ttl=300)

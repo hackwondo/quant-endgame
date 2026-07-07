@@ -137,8 +137,9 @@ def display_local_pdf(file_path):
     if not filename.lower().endswith('.pdf'):
         filename = filename + ".pdf"
     
-    raw_url = f"{_GITHUB_PDF_BASE}/{filename}"
-    viewer_url = f"https://docs.google.com/gview?url={raw_url}&embedded=true"
+    import urllib.parse
+    raw_url = f"{_GITHUB_PDF_BASE}/{urllib.parse.quote(filename)}"
+    viewer_url = f"https://mozilla.github.io/pdf.js/web/viewer.html?file={urllib.parse.quote(raw_url, safe='')}"
     st.markdown(
         f'<iframe src="{viewer_url}" width="100%" height="700" '
         f'style="border: 1px solid #CBD5E1; border-radius: 8px;"></iframe>',
