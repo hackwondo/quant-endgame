@@ -141,15 +141,10 @@ def display_local_pdf(file_path):
     if not os.path.exists(full_path):
         st.error(f"❌ '{filename}' 파일을 찾을 수 없습니다.")
         return
-    
+        
     with open(full_path, "rb") as f:
-        pdf_data = f.read()
-    st.download_button(
-        label=f"📥 {filename} 다운로드",
-        data=pdf_data,
-        file_name=filename,
-        mime="application/pdf"
-    )
+        base64_pdf = base64.b64encode(f.read()).decode('utf-8')
+    st.markdown(f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="800" type="application/pdf" style="border: 1px solid #CBD5E1; border-radius: 8px;"></iframe>', unsafe_allow_html=True)
 # 4. 데이터 로딩
 @st.cache_data(ttl=300)
 def load_all_data():
