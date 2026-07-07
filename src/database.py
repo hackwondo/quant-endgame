@@ -1,19 +1,27 @@
 import duckdb
 import os
 
-DB_PATH = 'data/stock_data.duckdb'
+DB_PATH_FULL = 'data/stock_data.duckdb'
+DB_PATH_LIGHT = 'data/dashboard_light.duckdb'
+
+def _get_db_path():
+    """원본 DB가 있으면 원본, 없으면 경량 DB를 사용합니다."""
+    if os.path.exists(DB_PATH_FULL):
+        return DB_PATH_FULL
+    return DB_PATH_LIGHT
 
 def get_db_connection():
     os.makedirs('data', exist_ok=True)
-    return duckdb.connect(DB_PATH)
+    return duckdb.connect(_get_db_path())
 
 def get_db_connection_readonly():
     """대시보드용 읽기 전용 커넥션 (수집/연산 중에도 동시 접근 가능)."""
     os.makedirs('data', exist_ok=True)
-    return duckdb.connect(DB_PATH, read_only=True)
+    return duckdb.connect(_get_db_path(), read_only=True)
 
 def init_database():
-    conn = get_db_connection()
+    os.makedirs('data', exist_ok=True)
+    conn = duckdb.connect(DB_PATH_FULL)  # 초기화는 항상 원본 DB에
     
     # 1. 일봉 원본 테이블
     conn.execute("""
