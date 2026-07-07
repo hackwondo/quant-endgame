@@ -139,7 +139,7 @@ def display_local_pdf(file_path):
     
     import urllib.parse
     raw_url = f"{_GITHUB_PDF_BASE}/{urllib.parse.quote(filename)}"
-    viewer_url = f"https://mozilla.github.io/pdf.js/web/viewer.html?file={urllib.parse.quote(raw_url, safe='')}"
+    viewer_url = f"https://docs.google.com/gview?url={raw_url}&embedded=true"
     st.markdown(
         f'<iframe src="{viewer_url}" width="100%" height="700" '
         f'style="border: 1px solid #CBD5E1; border-radius: 8px;"></iframe>',
@@ -352,6 +352,8 @@ with tab4:
         바닥권에서 오랫동안 조용히 횡보하다가 <b>갑자기 거래량 배수가 2~5배 이상 터지는 종목</b>은 대시세 상승 초입 신호일 가능성이 매우 높습니다. 매수 후 거래량이 급감하며 숨 고르기를 할 때 2~3일간 분할 매수하는 타점이 훌륭합니다.
     </div>
     """, unsafe_allow_html=True)
+    with st.expander("📖 [클릭] Gervais, Kaniel & Mingelgrin (2001) 논문 PDF 원문 직접 열람하기"):
+        display_local_pdf("The High Volume Return Premium.pdf")
     sub_df = df[df['Volume_Ratio'] >= 2.0].sort_values('Volume_Ratio', ascending=False)
     cols = st.columns(2)
     for idx, r in sub_df.head(20).reset_index().iterrows():
